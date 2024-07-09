@@ -24,7 +24,8 @@
 import React from 'react';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const NewsCard = ({ title, image, genre, shortDescription , numberOdReads}) => {
+const NewsCard = ({ title, image, genre, shortDescription , numberOfReads}) => {
+  // console.log('view',numberOfReads);
   return (
     <div className="bg-white min-w-fit h-full shadow-lg hover:scale-95 hover:shadow-sm transition rounded-xl overflow-hidden cursor-pointer">
       <img src={image} alt={title} className="w-full h-48 object-cover" />
@@ -40,7 +41,7 @@ const NewsCard = ({ title, image, genre, shortDescription , numberOdReads}) => {
         <div className='mt-8 flex justify-between items-end'>
           <div>
             <i className="fa-solid fa-eye"></i>
-            <span className="ml-2">{numberOdReads}</span>
+            <span className="ml-2">{numberOfReads}</span>
           </div>
           <p className="text-gray-300 bg-slate-800 text-xs rounded-full p-2">{genre}</p>
         </div>

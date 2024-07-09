@@ -28,7 +28,6 @@ export const fetchNewsByGenre = async (genre) => {
 export const fetchNews = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/news`);
-    console.log(response);
     return response.data;
   } catch (error) {
     console.error('Error fetching news:', error);
