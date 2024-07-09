@@ -27,7 +27,8 @@ export const fetchNewsByGenre = async (genre) => {
 
 export const fetchNews = async () => {
   try {
-    const response = await axios.get('http://localhost:5000/api/news'); // Adjust the URL as needed
+    const response = await axios.get(`${BASE_URL}/news`);
+    console.log(response);
     return response.data;
   } catch (error) {
     console.error('Error fetching news:', error);
@@ -37,7 +38,7 @@ export const fetchNews = async () => {
 
 export const login = async (email, password) => {
   try {
-    const response = await axios.post('http://localhost:5000/api/login', { email, password }); // Adjust the URL as needed
+    const response = await axios.post(`${BASE_URL}/auth/login`, { email, password });
     return response.data;
   } catch (error) {
     console.error('Error logging in:', error);
