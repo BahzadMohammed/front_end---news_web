@@ -36,6 +36,12 @@ export const fetchNews = async (pageNumber = 1, sortBy = 'recentNews' ) => {
   }
 };
 
+// Services/NewsServices.js
+export const fetchNewsById = async (id) => {
+  const response = await axios.get(`${BASE_URL}/news/${id}`);
+  return response.data;
+};
+
 export const login = async (email, password) => {
   try {
     const response = await axios.post(`${BASE_URL}/auth/login`, { email, password });
@@ -45,4 +51,6 @@ export const login = async (email, password) => {
     throw error;
   }
 };
+
+
 

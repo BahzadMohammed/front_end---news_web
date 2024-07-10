@@ -67,11 +67,13 @@ const NewsPage = () => {
             news.Items.map((item, index) => (
               <NewsCard
                 key={index}
+                id={item.NewsId}
                 title={item.Title}
                 image={item.ImageUrl}
                 genre={item.GenreName}
                 shortDescription={item.ShortDescription}
                 numberOfReads={item.NumberOfReads}
+                date={item.PostDate}
               />
             ))}
         </div>

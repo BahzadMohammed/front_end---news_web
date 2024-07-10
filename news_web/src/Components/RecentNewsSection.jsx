@@ -63,11 +63,13 @@ const RecentNewsSection = ({ news }) => {
               <div key={index} className="min-w-fit"> 
                 <NewsCard
                   key={index}
+                  id={item.NewsId}
                   title={item.Title}
                   image={item.ImageUrl}
                   genre={item.GenreName}
                   shortDescription={item.ShortDescription}
                   numberOfReads={item.NumberOfReads}
+                  date={item.PostDate}
                 />
               </div>
             ))}
