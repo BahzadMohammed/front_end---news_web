@@ -25,10 +25,11 @@ export const fetchNewsByGenre = async (genre) => {
   return data.Items;
 };
 
-export const fetchNews = async () => {
+export const fetchNews = async (pageNumber = 1, sortBy = 'recentNews' ) => {
   try {
-    const response = await axios.get(`${BASE_URL}/news`);
+    const response = await axios.get(`${BASE_URL}/news?sortBy=${sortBy=='topNews' ? 'numberOfReads' : 'PostDate'}&pageNumber=${pageNumber}`);
     return response.data;
+
   } catch (error) {
     console.error('Error fetching news:', error);
     throw error;

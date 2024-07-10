@@ -67,7 +67,7 @@ const RecentNewsSection = ({ news }) => {
                   image={item.ImageUrl}
                   genre={item.GenreName}
                   shortDescription={item.ShortDescription}
-                  numberOdReads={item.NumberOfReads}
+                  numberOfReads={item.NumberOfReads}
                 />
               </div>
             ))}
