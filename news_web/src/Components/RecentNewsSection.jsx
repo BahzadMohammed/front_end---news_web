@@ -1,33 +1,3 @@
-// // src/components/RecentNewsSection.js
-// import React from 'react';
-// import NewsCard from './NewsCard';
-
-// const RecentNewsSection = ({ news }) => {
-//   return (
-//     <section className="p-8 bg-gray-100">
-//       <div className="container mx-auto">
-//         <h2 className="text-3xl font-bold mb-4">News</h2>
-//         <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-//           {news.map((item, index) => (
-//             <NewsCard
-//               key={index}
-//               title={item.Title}
-//               image={item.ImageUrl}
-//               genre={item.GenreName}
-//               shortDescription={item.ShortDescription}
-//               numberOdReads={item.NumberOfReads}
-//             />
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default RecentNewsSection;
-
-
-// src/components/RecentNewsSection.js
 import React, { useRef } from 'react';
 import NewsCard from './NewsCard';
 

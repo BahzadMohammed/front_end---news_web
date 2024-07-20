@@ -3,9 +3,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { fetchNewsById, updateNews } from '../../Services/NewsServices';
 import { toast, ToastContainer } from 'react-toastify';
+import ScaleLoader from 'react-spinners/ScaleLoader';
  
 
 // Define the validation schema using Yup
@@ -55,11 +56,11 @@ function UpdateNewsPage() {
                 //     }
                 // )
 
-                setLoading(false);
             } catch (error) {
                 console.error('Error fetching news:', error);
-                setLoading(false);
             }
+
+            setLoading(false);
         };
 
         fetchNews();
@@ -91,7 +92,7 @@ function UpdateNewsPage() {
     };
 
     const notifySuccess = () => {
-        toast.success("The news has been created!");
+        toast.success("The news has been updated!");
         // make delay for toast
         setTimeout(() =>{
             navigate('/admin/news');
@@ -99,11 +100,20 @@ function UpdateNewsPage() {
     };
 
     const notifyError = () => {
-        toast.error("The news has not been created!");
+        toast.error("The news has not been updated!");
     };
 
     if (loading) {
-        return <div className="min-h-screen bg-gray-100 flex items-center justify-center">Loading...</div>;
+    console.log('loading...');
+    return <div className="flex justify-center items-center w-full h-screen">
+        <ScaleLoader 
+        color="#1F2937"
+        loading={loading}
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+        />
+    </div>
     }
 
 
@@ -165,10 +175,17 @@ function UpdateNewsPage() {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200"
+                        className="w-full bg-gray-800 text-white rounded-md hover:bg-black transition-colors mb-4 px-4 py-2 duration-200"
                     >
                         Update News
                     </button>
+                    <button
+                        onClick={() => navigate('/admin/news')}
+                        className="w-full bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 transition-colors duration-200"
+                    >
+                        Cancel
+                    </button>
+                    
                 </form>
             </div>
             <ToastContainer

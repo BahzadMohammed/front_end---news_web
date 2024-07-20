@@ -32,6 +32,8 @@ const NewsPage = () => {
       } catch (error) {
         console.error("Error fetching news:", error);
       }
+
+      setLoading(false);
     };
 
     getNews();
@@ -52,12 +54,7 @@ const NewsPage = () => {
     setNewsType(event.target.value??'');
   };
 
-  // set delay for loading
-  setTimeout(() => {
-    setLoading(false);
-  }, 1000);
-
-  if (!news || loading) {
+  if (loading) {
     console.log('loading...');
     return <div className="flex justify-center items-center w-full h-screen">
       <ScaleLoader 
@@ -73,8 +70,8 @@ const NewsPage = () => {
   return (
     <>
       <Header />
-      <div className="container mx-auto p-4">
-        <div className="flex justify-between mb-4">
+      <div className="container mx-auto p-4 h-screen">
+        <div className="flex justify-between mb-8">
           <select
             value={newsType}
             onChange={handleChangeNewsType}
@@ -87,7 +84,7 @@ const NewsPage = () => {
             {/* create news button */}
             <button
               onClick={() => navigate('/admin/create-news')}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-gray-700 text-white  hover:bg-gray-900 transition-colors font-bold py-2 px-4 rounded"
             >
               Create News
             </button>

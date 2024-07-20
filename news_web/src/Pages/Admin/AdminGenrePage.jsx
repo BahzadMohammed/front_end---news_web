@@ -40,6 +40,8 @@ const GenrePage = () =>
       {
         console.error("Error fetching news:", error);
       }
+
+      setLoading(false);
     };
 
     getNews();
@@ -64,15 +66,10 @@ const GenrePage = () =>
     setNewsType(event.target.value);
   };
 
-  // set delay for loading
-  setTimeout(() => {
-    setLoading(false);
-  }, 1000);
-
-  if (!news || loading) {
+  if (loading) {
     console.log('loading...');
     return <div className="flex justify-center items-center w-full h-screen">
-      <ScaleLoader
+      <ScaleLoader 
         color="#1F2937"
         loading={loading}
         size={150}

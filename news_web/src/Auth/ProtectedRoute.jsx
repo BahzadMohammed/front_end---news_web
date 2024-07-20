@@ -7,12 +7,6 @@ const ProtectedRoute = ({ children, role }) =>
 {
     const { user } = useAuth();
 
-    // useEffect(() => {
-        
-    //     const userToken = Cookies.get('userToken');
-    //     console.log(">>userToken: ", userToken);
-    // }, []);
-
 
     if (!user)
     {

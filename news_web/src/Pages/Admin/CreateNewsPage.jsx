@@ -118,9 +118,15 @@ function CreateNewsPage()
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200"
+                        className="w-full bg-gray-800 text-white rounded-md hover:bg-black transition-colors mb-4 px-4 py-2 duration-200"
                     >
                         Create News
+                    </button>
+                    <button
+                        onClick={() => navigate('/admin/news')}
+                        className="w-full bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 transition-colors duration-200"
+                    >
+                        Cancel
                     </button>
                 </form>
             </div>

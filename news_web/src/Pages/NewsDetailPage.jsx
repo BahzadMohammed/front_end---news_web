@@ -23,17 +23,14 @@ const NewsDetailPage = () => {
       } catch (error) {
         console.error("Error fetching news detail:", error);
       }
+
+      setLoading(false);
     };
 
     getNewsDetail();
   }, [id]);
 
-  // set delay for loading
-  setTimeout(() => {
-    setLoading(false);
-  }, 1000);
-
-  if (!newsDetail || loading) {
+  if (loading) {
     console.log('loading...');
     return <div className="flex justify-center items-center w-full h-screen">
       <ScaleLoader 
@@ -47,12 +44,6 @@ const NewsDetailPage = () => {
   }
 
   const { Title, ImageUrl, ShortDescription, Content, NumberOfReads, PostDate, LastUpdateDate, GenreName } = newsDetail;
-//   const displayDate = PostDate === LastUpdateDate ? PostDate : `Created: ${PostDate}, Updated: ${LastUpdateDate}`;
-
-//   only the date show not the time use regex
-
-  // const displayDate = PostDate.replace(/T.*$/, '');
-  // console.log(displayDate);
 
   return (
     <>
@@ -100,11 +91,6 @@ const NewsDetailPage = () => {
                 <p className="">{LastUpdateDate.replace(/T.*$/, '')}</p>
             </div>
         }
-
-        {/* <div>
-            <h2 className="mb-4 text-2xl"><strong>Genre: </strong></h2>
-            <p className="mb-4">{GenreName}</p>
-        </div> */}
       </div>
       <Footer />
     </>

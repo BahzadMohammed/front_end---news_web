@@ -13,14 +13,6 @@ export const useAuth = () =>
 export const AuthProvider = ({ children }) =>
 {
     const [user, setUser] = useState(null);
-
-    //   useEffect(() => {
-    //     // Fetch user data if authenticated
-    //     axios.get('http://localhost:5094/api/User', { withCredentials: true })
-    //       .then(response => setUser(response.data))
-    //       .catch(() => setUser(null));
-    //   }, []);
-
     const login = async (email, password) =>
     {
         const response = await axios.post('http://localhost:5094/api/auth/login', {

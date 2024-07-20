@@ -26,14 +26,13 @@ const NewsDetailPage = () => {
       } catch (error) {
         console.error("Error fetching news detail:", error);
       }
+
+      setLoading(false);
     };
 
     getNewsDetail();
   }, [id]);
 
-  if (!newsDetail) {
-    return <div>Loading...</div>;
-  }
 
   const handleDelete = async () => {
     try {
@@ -57,15 +56,10 @@ const NewsDetailPage = () => {
     toast.error("Error deleting news");
   };
 
-  // set delay for loading
-  setTimeout(() => {
-    setLoading(false);
-  }, 500);
-
-  if (!newsDetail || loading) {
+  if (loading) {
     console.log('loading...');
     return <div className="flex justify-center items-center w-full h-screen">
-      <ScaleLoader
+      <ScaleLoader 
         color="#1F2937"
         loading={loading}
         size={150}

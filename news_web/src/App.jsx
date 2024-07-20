@@ -28,9 +28,6 @@ function App() {
           <Route path="/admin/genre/:genre" element={<AdminGenrePage/>} />
           <Route path="/login" element={<LoginPage/>} />
           <Route path="*" element={<NotFoundPage />} />
-          {/* <ProtectedRoute path="/auth/create-news" element={<Secret/>} role="Admin" />
-          <ProtectedRoute path="/auth/update-news" element={<Secret/>} role="Admin" />
-          <ProtectedRoute path="/auth/delete-news" element={<Secret/>} role="Admin" /> */}
           <Route 
             path="/admin/news" 
             element={

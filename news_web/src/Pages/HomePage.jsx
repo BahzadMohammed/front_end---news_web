@@ -19,17 +19,13 @@ const HomePage = () => {
       setTopNews(topNews?.slice(0, 5));
       setRecentNews(recentNews.slice(0, 20));
       // setLastNewsImageUrl(recentNews[0].ImageUrl);
+      setLoading(false);
     };
 
     getNews();
   }, []);
 
-  // set delay for loading
-  setTimeout(() => {
-    setLoading(false);
-  }, 1000);
-
-  if (!topNews || loading) {
+  if (loading) {
     console.log('loading...');
     return <div className="flex justify-center items-center w-full h-screen">
       <ScaleLoader 
