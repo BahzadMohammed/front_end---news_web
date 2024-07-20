@@ -1,9 +1,11 @@
 // src/components/TopNewsSection.js
 import React from 'react';
 import NewsCard from './NewsCard';
+import Cookies from 'js-cookie';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const TopNewsSection = ({ news }) => {
+  Cookies.set('hhhh', 'ooooo');
   if (!news || news.length === 0) return null;
   
   return (
@@ -14,7 +16,7 @@ const TopNewsSection = ({ news }) => {
         <div className="flex items-start gap-4 mb-4">
           <div className="bg-gray-800 text-white px-1 py-5 rounded-full shadow-lg"></div>
           <h2 className="text-3xl font-bold mb-4 hover:text-blue-500 transition cursor-pointer">
-            <a href="/news">Top News</a>
+            <a href="/news?sortBy=topNews">Top News</a>
           </h2>
         </div>
 
@@ -39,6 +41,7 @@ const TopNewsSection = ({ news }) => {
             </div> */}
 
             <NewsCard
+              key={news[0].NewsId}
               id={news[0].NewsId}
               title={news[0].Title}
               image={news[0].ImageUrl}
@@ -54,7 +57,7 @@ const TopNewsSection = ({ news }) => {
             {news.slice(1, 5).map((item, index) => (
               <NewsCard
                 key={index}
-                id={item.Id}
+                id={item.NewsId}
                 title={item.Title}
                 image={item.ImageUrl}
                 genre={item.GenreName}
@@ -62,6 +65,7 @@ const TopNewsSection = ({ news }) => {
                 numberOfReads={item.NumberOfReads}
                 date={item.PostDate}
               />
+              
               // <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden hover:scale-95 hover:shadow-sm transition">
               //   <img src={newsItem.ImageUrl} alt={`Secondary News ${index + 1}`} className="w-full h-32 object-cover" />
               //   <div className="p-4 flex flex-col justify-between">

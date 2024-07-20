@@ -31,24 +31,27 @@
 import React, { useRef } from 'react';
 import NewsCard from './NewsCard';
 
-const RecentNewsSection = ({ news }) => {
+const RecentNewsSection = ({ news }) =>
+{
   const scrollContainerRef = useRef(null);
 
-  const scrollLeft = () => {
+  const scrollLeft = () =>
+  {
     scrollContainerRef.current.scrollBy({ left: -600, behavior: 'smooth' });
   };
 
-  const scrollRight = () => {
+  const scrollRight = () =>
+  {
     scrollContainerRef.current.scrollBy({ left: 600, behavior: 'smooth' });
   };
 
   return (
     <section className="p-16 bg-gray-100">
-       <div className="container mx-auto">
+      <div className="container mx-auto">
         <div className="flex items-start gap-4 mb-4">
           <div className="bg-gray-800 text-white px-1 py-5 rounded-full shadow-lg"></div>
           <h2 className="text-3xl font-bold mb-4 hover:text-blue-500 transition cursor-pointer">
-            <a href="/news">Recent News</a></h2>
+            <a href="/news?sortBy=recentNews">Recent News</a></h2>
         </div>
         <div className="relative">
           <button
@@ -60,7 +63,7 @@ const RecentNewsSection = ({ news }) => {
           {/* <div ef={scrollContainerRef} className="flex overflow-x-scroll scrollbar-hide space-x-4"> */}
           <div ref={scrollContainerRef} className="flex overflow-x-scroll scrollbar-hide space-x-4 rounded-3xl pb-5">
             {news.map((item, index) => (
-              <div key={index} className="min-w-fit"> 
+              <div key={index} className="min-w-fit">
                 <NewsCard
                   key={index}
                   id={item.NewsId}
@@ -81,7 +84,7 @@ const RecentNewsSection = ({ news }) => {
             &gt;
           </button>
         </div>
-       </div>
+      </div>
     </section>
   );
 };

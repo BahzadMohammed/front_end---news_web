@@ -4,11 +4,16 @@ import { fetchNews } from "../Services/NewsServices";
 import NewsCard from "../Components/NewsCard";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 const NewsPage = () => {
   const [news, setNews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [newsType, setNewsType] = useState('recentNews');
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -24,6 +29,7 @@ const NewsPage = () => {
       try {
         const newsData = await fetchNews(pageNumber, sortBy);
         setNews(newsData);
+        setTotalPages(newsData.TotalPages);
         console.log(newsData);
       } catch (error) {
         console.error("Error fetching news:", error);
@@ -48,15 +54,33 @@ const NewsPage = () => {
     setNewsType(event.target.value);
   };
 
+  // set delay for loading
+  setTimeout(() => {
+    setLoading(false);
+  }, 1000);
+
+  if (!news || loading) {
+    console.log('loading...');
+    return <div className="flex justify-center items-center w-full h-screen">
+      <ScaleLoader 
+        color="#1F2937"
+        loading={loading}
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    </div>
+  }
+
   return (
     <>
       <Header />
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto py-4 px-8">
         <div className="flex justify-end mb-4">
           <select
             value={newsType}
             onChange={handleChangeNewsType}
-            className="p-2 border rounded"
+            className="p-2 border rounded cursor-pointer transition hover:text-white bg-gray-200 hover:bg-gray-800"
           >
             <option value="recentNews">Recent News</option>
             <option value="topNews">Top News</option>
@@ -83,19 +107,33 @@ const NewsPage = () => {
           <button
             onClick={handlePreviousPage}
             disabled={currentPage === 1}
-            className="p-2 border rounded"
+            className={`p-2 border rounded ${currentPage === 1 ? 'opacity-0' : 'bg-gray-600 text-white hover:bg-gray-800' } `}
           >
             Previous
           </button>
           <span>Page {currentPage}</span>
           <button
             onClick={handleNextPage}
-            className="p-2 border rounded"
+            disabled={currentPage === totalPages}
+            className={`p-2 border rounded ${currentPage === totalPages ? 'opacity-0' : 'bg-gray-600 text-white hover:bg-gray-800' } `}
           >
             Next
           </button>
         </div>
       </div>
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <Footer />
     </>
   );

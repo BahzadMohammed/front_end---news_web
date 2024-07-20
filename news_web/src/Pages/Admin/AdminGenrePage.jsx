@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { fetchNewsByGenre } from '../Services/NewsServices';
-import Header from '../Components/Header';
-import Footer from '../Components/Footer';
-import NewsList from '../Components/NewsList';
-import NewsCard from '../Components/NewsCard';
+import { fetchNewsByGenre } from '../../Services/NewsServices';
+import Header from '../../Components/Header';
+import Footer from '../../Components/Footer';
+import NewsList from '../../Components/NewsList';
+import NewsCard from '../../Components/NewsCard';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 
 const GenrePage = () =>
 {
-  
   const { genre } = useParams();
-  console.log('>>genre from url: ', genre);
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,8 +22,6 @@ const GenrePage = () =>
   useEffect(() =>
   {
     const params = new URLSearchParams(location.search);
-    
-    // const genre = params.get('genre');
     const pageNumber = parseInt(params.get('page'), 10) || 1;
     setCurrentPage(pageNumber);
 
@@ -76,7 +72,7 @@ const GenrePage = () =>
   if (!news || loading) {
     console.log('loading...');
     return <div className="flex justify-center items-center w-full h-screen">
-      <ScaleLoader 
+      <ScaleLoader
         color="#1F2937"
         loading={loading}
         size={150}
@@ -113,6 +109,7 @@ const GenrePage = () =>
                 shortDescription={item.ShortDescription}
                 numberOfReads={item.NumberOfReads}
                 date={item.PostDate}
+                url="/admin/news/"
               />
             ))}
         </div>

@@ -1,9 +1,10 @@
 // Pages/NewsDetailPage.js
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchNewsById } from "../Services/NewsServices";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
+import { fetchNewsById, deleteNews } from "../../Services/NewsServices";
+import Header from "../../Components/Header";
+import Footer from "../../Components/Footer";
+import { ToastContainer, toast } from 'react-toastify';
 import ClipLoader from "react-spinners/ClipLoader";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
@@ -13,13 +14,15 @@ const NewsDetailPage = () => {
   const [newsDetail, setNewsDetail] = useState('');
   const [loading, setLoading] = useState(true);
   const BASE_URL = 'http://localhost:5094/api';
+  const count = 0;
+  const { Title, ImageUrl, ShortDescription, Content, NumberOfReads, PostDate, LastUpdateDate, GenreName } = newsDetail;
+
 
   useEffect(() => {
     const getNewsDetail = async () => {
       try {
         const newsData = await fetchNewsById(id);
         setNewsDetail(newsData);
-        console.log(newsData);
       } catch (error) {
         console.error("Error fetching news detail:", error);
       }
@@ -28,15 +31,41 @@ const NewsDetailPage = () => {
     getNewsDetail();
   }, [id]);
 
+  if (!newsDetail) {
+    return <div>Loading...</div>;
+  }
+
+  const handleDelete = async () => {
+    try {
+      await deleteNews(id);
+      notifySuccess();
+    } catch (error) {
+      console.error("Error deleting news:", error);
+      notifyError();
+    }
+  };
+
+  const notifySuccess = () => {
+    toast.success("The news has been deleted!");
+    // make delay for toast
+    setTimeout(() => {
+      navigate('/admin/news');
+    }, 3500);
+  };
+
+  const notifyError = () => {
+    toast.error("Error deleting news");
+  };
+
   // set delay for loading
   setTimeout(() => {
     setLoading(false);
-  }, 1000);
+  }, 500);
 
   if (!newsDetail || loading) {
     console.log('loading...');
     return <div className="flex justify-center items-center w-full h-screen">
-      <ScaleLoader 
+      <ScaleLoader
         color="#1F2937"
         loading={loading}
         size={150}
@@ -46,19 +75,23 @@ const NewsDetailPage = () => {
     </div>
   }
 
-  const { Title, ImageUrl, ShortDescription, Content, NumberOfReads, PostDate, LastUpdateDate, GenreName } = newsDetail;
-//   const displayDate = PostDate === LastUpdateDate ? PostDate : `Created: ${PostDate}, Updated: ${LastUpdateDate}`;
-
-//   only the date show not the time use regex
-
-  // const displayDate = PostDate.replace(/T.*$/, '');
-  // console.log(displayDate);
-
   return (
     <>
       <Header />
       <div className="container mx-auto p-4">
-        <button onClick={() => navigate(-1)} className="p-2 border rounded mb-4 bg-gray-200 hover:bg-gray-600 hover:text-white transition">Back</button>
+        <div className="flex justify-between mb-4">
+
+            {/* back button */}
+            <button onClick={() => navigate(-1)} className="p-2 border rounded mb-4 bg-gray-400 transition text-white hover:bg-gray-800">Back</button>
+
+            <div className="flex gap-4">
+                {/* edit button */}
+                <button onClick={() => navigate(`/admin/update-news/${id}`)} className="p-2 border rounded mb-4 bg-gray-400 transition text-white hover:bg-gray-800 ">Edit</button>
+
+                {/* delete button */}
+                <button onClick={handleDelete} className="p-2 border rounded mb-4 bg-red-500 transition text-white hover:bg-red-700">Delete</button>
+            </div>
+        </div>
         <h1 className="text-2xl sm:text-3xl font-bold mb-4">{Title}</h1>
         <img src={
           ImageUrl.includes('http') ? ImageUrl : `${BASE_URL}${ImageUrl}`
@@ -101,12 +134,21 @@ const NewsDetailPage = () => {
             </div>
         }
 
-        {/* <div>
-            <h2 className="mb-4 text-2xl"><strong>Genre: </strong></h2>
-            <p className="mb-4">{GenreName}</p>
-        </div> */}
       </div>
       <Footer />
+      
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 };
