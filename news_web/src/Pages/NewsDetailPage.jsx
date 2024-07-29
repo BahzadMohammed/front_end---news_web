@@ -6,6 +6,7 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import ClipLoader from "react-spinners/ClipLoader";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import Comments from "../Components/Comments";
 
 const NewsDetailPage = () => {
   const { id } = useParams();
@@ -91,6 +92,9 @@ const NewsDetailPage = () => {
                 <p className="">{LastUpdateDate.replace(/T.*$/, '')}</p>
             </div>
         }
+
+        {/* Add Comments Component */}
+        <Comments newsId={id} />
       </div>
       <Footer />
     </>
@@ -98,3 +102,8 @@ const NewsDetailPage = () => {
 };
 
 export default NewsDetailPage;
+
+
+
+
+

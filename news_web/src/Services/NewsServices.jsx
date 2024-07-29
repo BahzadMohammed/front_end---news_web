@@ -119,4 +119,28 @@ export const deleteNews = async (id) => {
 };
 
 
+export const fetchCommentsByNewsId = async (newsId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/Comments/${newsId}/comments`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+    throw error;
+  }
+};
+
+export const postComment = async (newsId, commentText, anonymousUser) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/comments`, {
+      newsId,
+      commentText,
+      anonymousUser
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error posting comment:", error);
+    throw error;
+  }
+};
+
 

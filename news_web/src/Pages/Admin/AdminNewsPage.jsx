@@ -70,7 +70,7 @@ const NewsPage = () => {
   return (
     <>
       <Header />
-      <div className="container mx-auto p-4 h-screen">
+      <div className="container mx-auto p-4">
         <div className="flex justify-between mb-8">
           <select
             value={newsType}
